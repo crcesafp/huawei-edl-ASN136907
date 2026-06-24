@@ -19,7 +19,7 @@ jobs:
       - run: pip install requests
 
       - name: Generate Akamai IP list
-        run: python akamai-script.py
+        run: python update_akamai_edl.py
 
       - name: Commit changes
         run: |
