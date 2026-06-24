@@ -9,7 +9,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Force Node 24 for all steps
 
     steps:
       - name: Checkout repository
@@ -33,3 +33,5 @@ jobs:
           git add huawei-ipv4.txt
           git diff --cached --quiet || git commit -m "Update Huawei prefixes"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
