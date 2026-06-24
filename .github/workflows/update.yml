@@ -8,7 +8,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-      env:
+    env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
@@ -20,14 +20,16 @@ jobs:
         with:
           python-version: '3.12'
 
-      - run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - run: python update_huawei_edl.py
+      - name: Run update script
+        run: python update_huawei_edl.py
 
       - name: Commit changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add huawei-ipv4.txt
-          git commit -m "Update Huawei prefixes" || echo "No changes"
+          git diff --cached --quiet || git commit -m "Update Huawei prefixes"
           git push
